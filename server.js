@@ -8,6 +8,7 @@ const Intern = require("./lib/Intern")
 
 // TODO: Create an array of questions for user input
 const employees=[]
+
 const questions = [
     {
         type: "input",
@@ -29,7 +30,7 @@ const questions = [
 
 function askManager() {
 
-    const questions = [
+    const manQuestions = [
         {
             type: "input",
             message: "What is your team manager’s name?",
@@ -52,10 +53,11 @@ function askManager() {
         },
         
     ];
-    inquirer.prompt(questions)
-    .then((answers)=>{
-        console.log(answers);
-        var manager=new Manager(answers.managerName, answers.eMail, answers.empId, answers.officeNumber)
+    inquirer.prompt(manQuestions)
+    .then((manAnswers)=>{
+        console.log(manAnswers);
+
+        var manager=new Manager(manAnswers.managerName, manAnswers.eMail, manAnswers.empId, manAnswers.officeNumber)
         employees.push(manager)
     createTeam()
     })
@@ -81,7 +83,6 @@ function createTeam() {
         } else {
             // quit
             create()
-            
         }
     })
 }
@@ -94,9 +95,9 @@ function createEngineer() {
         message: "What is your the employee's GitHub",
         name: "gitHub",
         }
-    ]).then((answers)=>{
-        console.log(answers);
-        var engineer=new Engineer(answers.empName, answers.eMail, answers.empId, answers.gitHub)
+    ]).then((engAnswers)=>{
+        console.log(engAnswers);
+        var engineer=new Engineer(engAnswers.empName, engAnswers.eMail, engAnswers.empId, engAnswers.gitHub)
         employees.push(engineer)
         createTeam()
     })
@@ -110,9 +111,9 @@ function createIntern() {
         message: "What is your the employee's School",
         name: "school",
         }
-    ]).then((answers)=>{
-        console.log(answers);
-        var intern=new Intern(answers.empName, answers.eMail, answers.empId, answers.school)
+    ]).then((intAnswers)=>{
+        console.log(intAnswers);
+        var intern=new Intern(intAnswers.empName, intAnswers.eMail, intAnswers.empId, intAnswers.school)
         employees.push(intern)
         createTeam()
     })
@@ -128,7 +129,9 @@ function createHtml() {
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     </head>
     <body>
-       ${html} 
+    <div class="container">
+    ${html} 
+    </div>
     </body>
     </html>`
 
@@ -177,11 +180,10 @@ const internHtml=(intern) => {
 const htmlArr=[]
 employees.forEach(employee =>{
     if (employee.role === "Engineer") {
-        htmlArr.push(engineerHtml(employee))
-        
-    } else {
-        
-    }
+        htmlArr.push(engineerHtml(employee))             
+    } else if (employee.role === "Intern"){    
+        htmlArr.push(internHtml(employee))
+    } else htmlArr.push(managerHtml(employee))
 })
 
 return html(htmlArr.join(""))
