@@ -1,7 +1,10 @@
 # 10 Object-Oriented Programming: Team Profile Generator
 
-## Your Task
+## By Danny Martinez
+## repo link: https://github.com/DannyAe/TEAM-PROFILE-GENERATOR
+## video of deployment: https://drive.google.com/file/d/12D7hhdhDViav6BaLNPNQOTGq3VlB4wnL/view 
 
+## TASK
 Your task is to build a Node.js command-line application that takes in information about employees on a software engineering team, then generates an HTML webpage that displays summaries for each person. 
 
 Because this Challenge will require the use of the `Inquirer` package, ensure that you install and use Inquirer version 8.2.4. To do so, use the following command in your project folder: `npm i inquirer@8.2.4`.
